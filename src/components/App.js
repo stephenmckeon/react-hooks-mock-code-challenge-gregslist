@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Header from "./Header"
+import NewForm from "./NewForm"
 import ListingsContainer from "./ListingsContainer"
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
     setListings(newListings)
   }
 
+  const handleAddListing = (newListing) => {
+    setListings([...listings, newListing])
+  }
+
   const filteredListings = listings.filter((listing) => {
     const listingDescription = listing.description.toLowerCase()
 
@@ -35,6 +40,7 @@ function App() {
   return (
     <div className="app">
       <Header setSearch={setSearch} setSort={setSort} />
+      <NewForm onAddListing={handleAddListing} />
       <ListingsContainer
         handleDeleteListing={handleDeleteListing}
         listings={sortedAndFilteredListings}
