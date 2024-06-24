@@ -11,10 +11,20 @@ function App() {
       .then(setListings)
   }, [])
 
+  const handleDeleteListing = (deletedListingId) => {
+    const newListings = listings.filter(
+      (listing) => listing.id !== deletedListingId
+    )
+    setListings(newListings)
+  }
+
   return (
     <div className="app">
       <Header />
-      <ListingsContainer listings={listings} />
+      <ListingsContainer
+        handleDeleteListing={handleDeleteListing}
+        listings={listings}
+      />
     </div>
   )
 }
