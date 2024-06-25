@@ -11,7 +11,7 @@ function ListingCard({
   const handleDelete = () => {
     fetch(`http://localhost:6001/listings/${id}`, {
       method: "DELETE",
-    }).then(() => onDeleteListing(id))
+    }).then(onDeleteListing)
   }
 
   return (

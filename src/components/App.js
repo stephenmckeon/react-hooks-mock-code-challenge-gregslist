@@ -4,26 +4,12 @@ import NewForm from "./NewForm"
 import ListingsContainer from "./ListingsContainer"
 
 function App() {
+  const [fetchTrigger, setFetchTrigger] = useState(false)
   const [listings, setListings] = useState([])
   const [search, setSearch] = useState("")
   const [sort, setSort] = useState("")
 
-  useEffect(() => {
-    fetch("http://localhost:6001/listings")
-      .then((response) => response.json())
-      .then(setListings)
-  }, [])
-
-  const handleDeleteListing = (deletedListingId) => {
-    const newListings = listings.filter(
-      (listing) => listing.id !== deletedListingId
-    )
-    setListings(newListings)
-  }
-
-  const handleAddListing = (newListing) => {
-    setListings([...listings, newListing])
-  }
+  const toggleFetchTrigger = () => setFetchTrigger(!fetchTrigger)
 
   const filteredListings = listings.filter((listing) => {
     const listingDescription = listing.description.toLowerCase()
@@ -37,12 +23,18 @@ function App() {
       })
     : filteredListings
 
+  useEffect(() => {
+    fetch("http://localhost:6001/listings")
+      .then((response) => response.json())
+      .then(setListings)
+  }, [fetchTrigger])
+
   return (
     <div className="app">
       <Header setSearch={setSearch} setSort={setSort} />
-      <NewForm onAddListing={handleAddListing} />
+      <NewForm onAddListing={toggleFetchTrigger} />
       <ListingsContainer
-        handleDeleteListing={handleDeleteListing}
+        handleDeleteListing={toggleFetchTrigger}
         listings={sortedAndFilteredListings}
       />
     </div>
