@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Header from "./Header"
-import NewForm from "./NewForm"
 import ListingsContainer from "./ListingsContainer"
+import NewForm from "./NewForm"
 
 function App() {
   const [fetchTrigger, setFetchTrigger] = useState(false)
@@ -24,7 +24,7 @@ function App() {
     : filteredListings
 
   useEffect(() => {
-    fetch("http://localhost:6001/listings")
+    fetch(`${process.env.REACT_APP_API_URL}/listings`)
       .then((response) => response.json())
       .then(setListings)
   }, [fetchTrigger])

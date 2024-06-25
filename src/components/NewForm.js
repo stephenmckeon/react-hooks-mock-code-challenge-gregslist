@@ -16,7 +16,7 @@ function NewForm({ onAddListing }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch(`http://localhost:6001/listings/`, {
+    fetch(`${process.env.REACT_APP_API_URL}/listings/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

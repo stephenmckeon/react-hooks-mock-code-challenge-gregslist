@@ -9,7 +9,7 @@ function ListingCard({
   const handleClick = () => setIsFavorite(!isFavorite)
 
   const handleDelete = () => {
-    fetch(`http://localhost:6001/listings/${id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/listings/${id}`, {
       method: "DELETE",
     }).then(onDeleteListing)
   }
